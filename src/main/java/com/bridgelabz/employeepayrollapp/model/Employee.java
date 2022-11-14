@@ -1,32 +1,42 @@
 package com.bridgelabz.employeepayrollapp.model;
 
+import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollAppDTO;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDate;
+
 @Entity
+
 public class Employee {
     @Id
     @GeneratedValue
    private int id;
-   public String firstName;
+   private String firstName;
    private String lastName;
    private String profilePic;
    private String note;
    private long salary;
    private String startDate;
-
-    public Employee() {
+    public Employee(EmployeePayrollAppDTO employeePayrollAppDTO) {
+        this.firstName = employeePayrollAppDTO.getFirstName();
+        this.lastName = employeePayrollAppDTO.getLastName();
+        this.profilePic = employeePayrollAppDTO.getProfilePic();
+        this.note = employeePayrollAppDTO.getNote();
+        this.salary = employeePayrollAppDTO.getSalary();
+        this.startDate = employeePayrollAppDTO.getStartDate();
     }
 
-    public Employee(int id, String firstName, String lastName, String profilePic, String note, long salary, String startDate) {
+    public Employee(int id, EmployeePayrollAppDTO employeePayrollAppDTO) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.profilePic = profilePic;
-        this.note = note;
-        this.salary = salary;
-        this.startDate = startDate;
+        this.firstName = employeePayrollAppDTO.getFirstName();
+        this.lastName = employeePayrollAppDTO.getLastName();
+        this.profilePic = employeePayrollAppDTO.getProfilePic();
+        this.note = employeePayrollAppDTO.getNote();
+        this.salary = employeePayrollAppDTO.getSalary();
+        this.startDate = employeePayrollAppDTO.getStartDate();
+    }
+
+    public Employee() {
     }
 
     public int getId() {
@@ -81,7 +91,7 @@ public class Employee {
         return startDate;
     }
 
-    public void setStartDate(String  startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 

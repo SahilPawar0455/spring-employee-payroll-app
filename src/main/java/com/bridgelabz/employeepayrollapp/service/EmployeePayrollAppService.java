@@ -1,8 +1,12 @@
 package com.bridgelabz.employeepayrollapp.service;
 
+import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollAppDTO;
+import com.bridgelabz.employeepayrollapp.dto.ResponseDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.repositary.EmployeePayrollAppRepositary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,56 +16,45 @@ import java.util.Optional;
 public class EmployeePayrollAppService {
     @Autowired
     EmployeePayrollAppRepositary employeePayrollAppRepositary;
-    public static String printMessages() {
+    public String printMessages() {
         return "hello world";
     }
 
-    public Employee fillInformation(Employee employee) {
-      return employeePayrollAppRepositary.save(employee);
+    public ResponseEntity<ResponseDTO> fillInformation(EmployeePayrollAppDTO employeePayrollAppDTO) {
+        Employee employee = new Employee(employeePayrollAppDTO);
+        employeePayrollAppRepositary.save(employee);
+        ResponseDTO responseDTO = new ResponseDTO(" Successfully Add in database",employee);
+        return  new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
-    public List <Employee> getAllEmployeeInformation() {
-        return employeePayrollAppRepositary.findAll();
-    }
-
-    public Employee editEmployeeInformation(int id, int editOfRowNo,String enterTheValue) {
+    public ResponseEntity<ResponseDTO> deleteEmployeeInformation(int id) {
         Optional <Employee> employee = employeePayrollAppRepositary.findById(id);
-        if (employee.get().getId() == id){
-            switch (editOfRowNo){
-                case 1:
-                    int id1 = Integer.parseInt(enterTheValue);
-                    employee.get().setId(id1);
-                    break;
-                case 2:
-                    employee.get().setFirstName(enterTheValue);
-                    break;
-                case 3:
-                    employee.get().setLastName(enterTheValue);
-                    break;
-                case 4:
-                    employee.get().setProfilePic(enterTheValue);
-                    break;
-                case 5:
-                    employee.get().setNote(enterTheValue);
-                    break;
-                case 6:
-                    long salary = Long.parseLong(enterTheValue);
-                    employee.get().setSalary(salary);
-                    break;
-                case 7:
-                    employee.get().setStartDate(enterTheValue);
-                    break;
-            }
-        }
-        return employeePayrollAppRepositary.save(employee.get());
-    }
-
-    public void deleteEmployeeInformation(int id) {
-        Optional <Employee> employee = employeePayrollAppRepositary.findById(id);
+        ResponseDTO responseDTO = new ResponseDTO(" Successfully delete employee ",employee);
         employeePayrollAppRepositary.delete(employee.get());
+        return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-    public Optional<Employee> getEmployeeInformation(int id) {
-        return employeePayrollAppRepositary.findById(id);
+    public ResponseEntity<ResponseDTO> getEmployeeInformation(int id) {
+        Optional<Employee> employee=employeePayrollAppRepositary.findById(id);
+        ResponseDTO responseDTO = new ResponseDTO(" Successfully getting employee ",employee);
+        return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    public ResponseEntity<ResponseDTO> searchAllEmployee() {
+        List<Employee> employeeList = employeePayrollAppRepositary.findAll();
+        ResponseDTO responseDTO = new ResponseDTO("All Employee Details",employeeList);
+        return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    public ResponseEntity<ResponseDTO> editEmployeeInformation1(int id, EmployeePayrollAppDTO employeePayrollAppDTO){
+        Optional <Employee> optional= employeePayrollAppRepositary.findById(id);
+        if (optional.get().getId() == id){
+            Employee employee1 = new Employee(id,employeePayrollAppDTO);
+            employeePayrollAppRepositary.save(employee1);
+            ResponseDTO responseDTO = new ResponseDTO(" Successfully Update ",employee1);
+            return  new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
+        }else {
+            return null;
+        }
     }
 }
