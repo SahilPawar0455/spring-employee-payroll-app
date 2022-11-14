@@ -17,7 +17,7 @@ import java.util.Optional;
 public class EmployeePayrollAppService implements IEmployeePayrollAppService{
     @Autowired
     EmployeePayrollAppRepositary employeePayrollAppRepositary;
-    List<Employee> employeeList = new ArrayList<>();
+   // List<Employee> employeeList = new ArrayList<>();
 
     @Override
     public String printMessages() {
@@ -28,7 +28,7 @@ public class EmployeePayrollAppService implements IEmployeePayrollAppService{
     public ResponseEntity<ResponseDTO> fillInformation(EmployeePayrollAppDTO employeePayrollAppDTO) {
         Employee employee = new Employee(employeePayrollAppDTO);
         employeePayrollAppRepositary.save(employee);                                              // save in repository
-        employeeList.add(employee);                                                               // add in employee List
+       // employeeList.add(employee);                                                               // add in employee List
         ResponseDTO responseDTO = new ResponseDTO(" Successfully Add in database",employee);
         return  new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
@@ -38,14 +38,14 @@ public class EmployeePayrollAppService implements IEmployeePayrollAppService{
         Optional <Employee> employee = employeePayrollAppRepositary.findById(id);
         ResponseDTO responseDTO = new ResponseDTO(" Successfully delete employee ",employee);
         employeePayrollAppRepositary.delete(employee.get());                            // delete in repository
-        employeeList.remove(employee.get());                                            // delete in employee List
+       // employeeList.remove(employee.get());                                            // delete in employee List
         return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ResponseDTO> getEmployeeInformation(int id) {
         Optional<Employee> employee=employeePayrollAppRepositary.findById(id);          // get Employee in repository
-        Employee employee1 = employeeList.get(id);                                      // get Employee in Employee List
+       // Employee employee1 = employeeList.get(id);                                      // get Employee in Employee List
         ResponseDTO responseDTO = new ResponseDTO(" Successfully getting employee ",employee);
         return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
@@ -53,19 +53,19 @@ public class EmployeePayrollAppService implements IEmployeePayrollAppService{
     @Override
     public ResponseEntity<ResponseDTO> searchAllEmployee() {
         List<Employee> employeeList1 = employeePayrollAppRepositary.findAll();        // get all Employee in repository
-        List<Employee> employeeList2 = employeeList.stream().toList();                //  get all Employee in Employee List
-        ResponseDTO responseDTO = new ResponseDTO("All Employee Details",employeeList2);
+     //   List<Employee> employeeList2 = employeeList.stream().toList();                //  get all Employee in Employee List
+        ResponseDTO responseDTO = new ResponseDTO("All Employee Details",employeeList1);
         return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ResponseDTO> editEmployeeInformation1(int id, EmployeePayrollAppDTO employeePayrollAppDTO){
         Optional <Employee> employee = employeePayrollAppRepositary.findById(id);                    // get Employee in repository
-        Employee employee2 = employeeList.get(id);                                                  // get Employee in Employee List
+    //    Employee employee2 = employeeList.get(id);                                                  // get Employee in Employee List
         if (employee.get().getId() == id){
             Employee employee3 = new Employee(id,employeePayrollAppDTO);
             employeePayrollAppRepositary.save(employee3);                                           // update Employee in repository
-            employeeList.add(employee3);                                                            // update Employee in Employee List
+           // employeeList.add(employee3);                                                            // update Employee in Employee List
             ResponseDTO responseDTO = new ResponseDTO(" Successfully Update ",employee3);
             return  new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
         }else {
