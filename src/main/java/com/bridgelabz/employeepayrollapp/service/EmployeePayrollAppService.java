@@ -54,7 +54,7 @@ public class EmployeePayrollAppService implements IEmployeePayrollAppService{
     public ResponseEntity<ResponseDTO> searchAllEmployee() {
         List<Employee> employeeList1 = employeePayrollAppRepositary.findAll();        // get all Employee in repository
         List<Employee> employeeList2 = employeeList.stream().toList();                //  get all Employee in Employee List
-        ResponseDTO responseDTO = new ResponseDTO("All Employee Details",employeeList1);
+        ResponseDTO responseDTO = new ResponseDTO("All Employee Details",employeeList2);
         return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
