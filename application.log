@@ -1,0 +1,5 @@
+2022-11-15 00:55:34.433  INFO 9204 --- [restartedMain] c.b.e.EmployeePayrollAppApplication      : Starting EmployeePayrollAppApplication using Java 18.0.2 on DESKTOP-PSM07GM with PID 9204 (C:\Program Files\Apache Software Foundation\Tomcat 9.0\employee-payroll-app\target\classes started by Sahil in C:\Program Files\Apache Software Foundation\Tomcat 9.0\employee-payroll-app)
+2022-11-15 00:55:34.443 DEBUG 9204 --- [restartedMain] c.b.e.EmployeePayrollAppApplication      : Running with Spring Boot v2.7.5, Spring v5.3.23
+2022-11-15 00:55:34.446  INFO 9204 --- [restartedMain] c.b.e.EmployeePayrollAppApplication      : No active profile set, falling back to 1 default profile: "default"
+2022-11-15 00:55:51.132  WARN 9204 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-11-15 00:55:53.075  INFO 9204 --- [restartedMain] c.b.e.EmployeePayrollAppApplication      : Started EmployeePayrollAppApplication in 20.696 seconds (JVM running for 24.237)
