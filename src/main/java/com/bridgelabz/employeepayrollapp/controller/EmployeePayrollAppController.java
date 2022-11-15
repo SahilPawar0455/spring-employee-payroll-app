@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeePayrollAppController {
@@ -18,7 +20,7 @@ public class EmployeePayrollAppController {
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<ResponseDTO> fillInformation(@RequestBody EmployeePayrollAppDTO employeePayrollAppDTO){
+    public ResponseEntity<ResponseDTO> fillInformation(@Valid @RequestBody EmployeePayrollAppDTO employeePayrollAppDTO){
           return IEmployeePayrollAppService.fillInformation(employeePayrollAppDTO);
     }
 
