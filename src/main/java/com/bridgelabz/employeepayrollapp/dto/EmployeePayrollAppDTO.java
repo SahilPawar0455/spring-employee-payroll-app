@@ -18,8 +18,8 @@ public class EmployeePayrollAppDTO {
     @Pattern(regexp = "^[A-Z]{1}[a-zA-Z]{2,}$", message = "Employee First Name Invalid")
     private String firstName;
 
-    @NotEmpty(message = "Employee First name is mandatory")
-    @Pattern(regexp = "^[A-Z]{1}[a-zA-Z]{2,}$", message = "Employee First Name Invalid")
+    @NotEmpty(message = "Employee Last name is mandatory")
+    @Pattern(regexp = "^[A-Z]{1}[a-zA-Z]{2,}$", message = "Employee Last Name Invalid")
     private String lastName;
 
     private String profilePic;
