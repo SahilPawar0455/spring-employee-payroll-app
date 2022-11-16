@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,26 +35,38 @@ public class EmployeePayrollAppService implements IEmployeePayrollAppService{
     @Override
     public ResponseEntity<ResponseDTO> deleteEmployeeInformation(int id) {
         Optional <Employee> employee = employeePayrollAppRepositary.findById(id);
-        ResponseDTO responseDTO = new ResponseDTO(" Successfully delete employee ",employee);
-        employeePayrollAppRepositary.delete(employee.get());                            // delete in repository
-       // employeeList.remove(employee.get());                                            // delete in employee List
-        return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        if (employee.isEmpty()){
+            throw new EmployeePayrollAppException("Employee is ID is not fount");
+        }else {
+            ResponseDTO responseDTO = new ResponseDTO(" Successfully delete employee ", employee);
+            employeePayrollAppRepositary.delete(employee.get());                            // delete in repository
+            // employeeList.remove(employee.get());                                            // delete in employee List
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        }
     }
 
     @Override
     public ResponseEntity<ResponseDTO> getEmployeeInformation(int id) {
         Optional<Employee> employee=employeePayrollAppRepositary.findById(id);          // get Employee in repository
        // Employee employee1 = employeeList.get(id);                                      // get Employee in Employee List
+       if (employee.isEmpty()){
+           throw new EmployeePayrollAppException("Employee is ID is not fount");
+       }else {
         ResponseDTO responseDTO = new ResponseDTO(" Successfully getting employee ",employee);
         return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        }
     }
 
     @Override
     public ResponseEntity<ResponseDTO> searchAllEmployee() {
         List<Employee> employeeList1 = employeePayrollAppRepositary.findAll();        // get all Employee in repository
      //   List<Employee> employeeList2 = employeeList.stream().toList();                //  get all Employee in Employee List
-        ResponseDTO responseDTO = new ResponseDTO("All Employee Details",employeeList1);
-        return  new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        if (employeeList1.isEmpty()){
+            throw new EmployeePayrollAppException("Employee Payroll list is Empty");
+        }else {
+            ResponseDTO responseDTO = new ResponseDTO("All Employee Details", employeeList1);
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        }
     }
 
     @Override
@@ -70,7 +80,17 @@ public class EmployeePayrollAppService implements IEmployeePayrollAppService{
             ResponseDTO responseDTO = new ResponseDTO(" Successfully Update ",employee3);
             return  new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
         }else {
-            return null;
+            throw new EmployeePayrollAppException("Employee is not present");
+        }
+    }
+
+    @Override
+    public List<Employee> employeeFindByDepartment(String department){
+        List<Employee> employeeList = employeePayrollAppRepositary.employeeFindByDepartment(department);
+        if (employeeList.isEmpty()){
+            throw new EmployeePayrollAppException("Department is not found");
+        }else {
+            return employeeList;
         }
     }
 }
