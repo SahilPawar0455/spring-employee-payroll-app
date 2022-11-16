@@ -23,6 +23,7 @@ public class Employee {
    private String note;
    private long salary;
    private String startDate;
+   private String department;
     public Employee(EmployeePayrollAppDTO employeePayrollAppDTO) {
         this.firstName = employeePayrollAppDTO.getFirstName();
         this.lastName = employeePayrollAppDTO.getLastName();
@@ -30,6 +31,7 @@ public class Employee {
         this.note = employeePayrollAppDTO.getNote();
         this.salary = employeePayrollAppDTO.getSalary();
         this.startDate = employeePayrollAppDTO.getStartDate();
+        this.department = employeePayrollAppDTO.getDepartment();
     }
 
     public Employee(int id, EmployeePayrollAppDTO employeePayrollAppDTO) {
@@ -40,5 +42,6 @@ public class Employee {
         this.note = employeePayrollAppDTO.getNote();
         this.salary = employeePayrollAppDTO.getSalary();
         this.startDate = employeePayrollAppDTO.getStartDate();
+        this.department = employeePayrollAppDTO.getDepartment();
     }
 }

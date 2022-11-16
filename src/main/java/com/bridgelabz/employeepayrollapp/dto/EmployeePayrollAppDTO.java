@@ -32,4 +32,7 @@ public class EmployeePayrollAppDTO {
 
     @NotEmpty(message = "Start Date is mandatory")
     private String startDate;
+
+    @NotEmpty(message = "Start Date is mandatory")
+    private String department;
 }

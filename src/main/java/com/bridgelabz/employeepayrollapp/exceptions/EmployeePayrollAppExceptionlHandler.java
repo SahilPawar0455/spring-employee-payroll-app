@@ -20,4 +20,10 @@ public class EmployeePayrollAppExceptionlHandler {
         ResponseDTO responseDTO = new ResponseDTO("Exception while processing REST Request ",errMessages);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
+
+    @ExceptionHandler(EmployeePayrollAppException.class)
+    public ResponseEntity<ResponseDTO> handleException(EmployeePayrollAppException exception){
+        ResponseDTO responseDTO = new ResponseDTO("Employee Pay roll Exception",exception.getMessage());
+        return new  ResponseEntity<> (responseDTO,HttpStatus.BAD_REQUEST);
+    }
 }
